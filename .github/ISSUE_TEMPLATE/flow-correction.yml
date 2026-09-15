@@ -1,0 +1,78 @@
+name: 🔧 Flow correction
+description: Report something inaccurate, outdated, or misleading on a flow page.
+title: "[Correction] "
+labels: ["correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you — corrections are the most valuable contribution to this project.
+        If a page contradicts a specification, that is a bug and we want to fix it quickly.
+
+        If you already know the fix, a pull request is very welcome instead of an issue.
+
+  - type: input
+    id: page
+    attributes:
+      label: Which page?
+      description: Path or link to the flow page.
+      placeholder: flows/auth/oauth2-authorization-code-pkce.md
+    validations:
+      required: true
+
+  - type: input
+    id: section
+    attributes:
+      label: Which section?
+      placeholder: Step-by-step, step 9
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: What the page currently says
+      description: Quote it, so the exact wording is unambiguous.
+    validations:
+      required: true
+
+  - type: textarea
+    id: correct
+    attributes:
+      label: What is actually correct
+    validations:
+      required: true
+
+  - type: textarea
+    id: source
+    attributes:
+      label: Source
+      description: >
+        A spec reference with a section anchor is ideal. Vendor documentation or a
+        reproducible test also works. Please cite something — we do not merge
+        corrections on assertion alone, in either direction.
+      placeholder: |
+        RFC 7636 §4.2 — the challenge is base64url-encoded WITHOUT padding.
+        https://www.rfc-editor.org/rfc/rfc7636#section-4.2
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: How serious is it?
+      options:
+        - "Security-relevant — following the page could produce a vulnerability"
+        - "Functionally wrong — following the page would not work"
+        - "Misleading — technically true but likely to be misread"
+        - "Outdated — was correct, superseded by a newer spec or practice"
+        - "Typo or wording"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: offer
+    attributes:
+      label: Would you like to fix it?
+      options:
+        - label: I am willing to open a pull request for this

@@ -1,0 +1,12 @@
+# The repo is build-free. These only appear when running the validation tooling.
+node_modules/
+package-lock.json
+.mermaid-tmp/
+*.log
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+ 

@@ -1,0 +1,32 @@
+{
+  // Rules tuned for long-form technical prose with diagrams and tables.
+  // See https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+
+  // Prose wraps naturally; we do not enforce a hard column limit.
+  "MD013": false,
+
+  // Flow pages legitimately reuse headings like "Common pitfalls" across files,
+  // and repeat sub-headings such as "Why it bites you" within a file.
+  "MD024": { "siblings_only": true },
+
+  // Frontmatter means the first line is not an H1.
+  "MD041": false,
+
+  // Every flow page has a frontmatter `title:` AND an `# H1`. By default
+  // markdownlint treats the frontmatter title as the document title, which
+  // makes the real H1 look like a duplicate. Disable that coupling.
+  "MD025": { "front_matter_title": "" },
+
+  // Emphasis is used as a lightweight label in pitfall/threat lists.
+  "MD036": false,
+
+  // Bare URLs are avoided in prose but appear inside YAML frontmatter `specs:`.
+  "MD034": false,
+
+  // Inline HTML is used sparingly for <details> collapsible sections.
+  "MD033": { "allowed_elements": ["details", "summary", "br", "kbd", "sup"] },
+
+  // Ordered lists in the step-by-step walkthrough must use real ascending
+  // numbers so they line up with Mermaid `autonumber` steps.
+  "MD029": { "style": "ordered" },
+}

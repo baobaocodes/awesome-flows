@@ -1,0 +1,84 @@
+name: ✨ New flow
+description: Propose a new flow page, or claim one from the roadmap.
+title: "[Flow] "
+labels: ["new flow"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before opening this, please search existing issues — the flow may already be
+        claimed. The [roadmap](https://github.com/awesome-flows/awesome-flows#roadmap)
+        lists flows we already want.
+
+  - type: input
+    id: name
+    attributes:
+      label: Flow name
+      placeholder: DNS Resolution
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - ai-systems
+        - auth
+        - distributed-systems
+        - networking
+        - data-and-delivery
+        - "None of these — suggest a new category"
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: What question does this page answer?
+      description: >
+        One sentence, phrased as the question a developer would search for. This
+        becomes the "What it answers" column in the index.
+      placeholder: How does a browser turn example.com into an IP address, and what is cached where along the way?
+    validations:
+      required: true
+
+  - type: textarea
+    id: specs
+    attributes:
+      label: Normative specs
+      description: >
+        Which specifications govern this flow? Every claim on the page must be
+        traceable to a reference, so if there is no authoritative source, say so
+        and explain what you would cite instead.
+      placeholder: |
+        RFC 1034, RFC 1035 — DNS concepts and implementation
+        RFC 8484 — DNS over HTTPS
+    validations:
+      required: true
+
+  - type: textarea
+    id: pitfalls
+    attributes:
+      label: Pitfalls you would cover
+      description: >
+        Real mistakes people ship, not hypotheticals. This is the section readers
+        value most, and it is the best signal that a page is worth writing.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: claim
+    attributes:
+      label: Are you writing it?
+      options:
+        - label: I am claiming this and will open a PR
+        - label: I am suggesting it for someone else to write
+
+  - type: checkboxes
+    id: read
+    attributes:
+      label: Preparation
+      options:
+        - label: I have read [CONTRIBUTING.md](https://github.com/awesome-flows/awesome-flows/blob/main/CONTRIBUTING.md) and the page template
+          required: true

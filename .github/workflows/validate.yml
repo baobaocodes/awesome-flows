@@ -1,0 +1,68 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  structure:
+    name: Structure & internal links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Frontmatter completeness, category/directory agreement, required
+      # sections, Mermaid conventions, relative links, and index coverage.
+      # No dependencies — pure Node.
+      - run: node .github/scripts/check-structure.mjs .
+
+  markdownlint:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npx -y markdownlint-cli2 "**/*.md"
+
+  mermaid:
+    name: Mermaid parse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # A block that fails to parse renders as a raw code fence on GitHub,
+      # which reviewers miss. Worth the Chromium download to catch it.
+      - run: node .github/scripts/check-mermaid.mjs .
+
+  links:
+    name: External links
+    runs-on: ubuntu-latest
+    # Advisory only. RFC mirrors and spec sites rate-limit and go down; a
+    # flaky third-party host must not block a correction from being merged.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --max-concurrency 4
+            --accept 200,206,403,429
+            --exclude-path templates/
+            '**/*.md'
+          fail: false

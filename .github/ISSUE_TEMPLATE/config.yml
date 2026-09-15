@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 📖 Read the contributing guide
+    url: https://github.com/awesome-flows/awesome-flows/blob/main/CONTRIBUTING.md
+    about: Page template, Mermaid conventions, content standards, and the review checklist.
+  - name: 💬 Ask a question or discuss a flow
+    url: https://github.com/awesome-flows/awesome-flows/discussions
+    about: For questions about a flow, or to propose a change before writing it.
